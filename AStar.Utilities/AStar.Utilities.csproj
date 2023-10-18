@@ -17,6 +17,9 @@
     <RepositoryUrl>https://github.com/jbarden/astar-utilities.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/jbarden/astar-utilities</PackageProjectUrl>
+    <Description>This package contains a collection of extension methods designed to make code more fluent (aka readable).
+
+Over time, additional methods will be added.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

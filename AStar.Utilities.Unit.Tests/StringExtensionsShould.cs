@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 namespace AStar.Utilities.Unit.Tests;
 
 public class StringExtensionsShould
