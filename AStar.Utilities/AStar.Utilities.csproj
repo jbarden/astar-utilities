@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>AStar Utilities</Title>
+    <Company>AStar</Company>
+    <Copyright>AStar Development 2023</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Version>0.0.1</Version>
+    <RepositoryUrl>https://github.com/jbarden/astar-utilities.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/jbarden/astar-utilities</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
