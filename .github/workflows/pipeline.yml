@@ -13,6 +13,10 @@ jobs:
     outputs:
       semVer: ${{ steps.gitversion.outputs.semVer }}
     steps:
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0
@@ -31,6 +35,7 @@ jobs:
   build:
     name: Build and analyze
     runs-on: windows-latest
+    needs: display-semver
 
     steps:
     - name: Set up JDK
@@ -74,7 +79,7 @@ jobs:
       run: |
         dotnet tool install --global dotnet-coverage
         .\.sonar\scanner\dotnet-sonarscanner begin /k:"jbarden_astar-utilities" /o:"jbarden-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-        dotnet build --configuration Release p:Version=$BUILD_VERSION 
+        dotnet build --configuration Release p:Version=$SEMVER 
         dotnet-coverage collect 'dotnet test --filter "FullyQualifiedName!~Acceptance.Tests"' -f xml -o 'coverage.xml'
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
     - name: Upload dotnet test results
