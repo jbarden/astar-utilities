@@ -65,7 +65,7 @@ jobs:
 
     - name: Display SemVer
       run: |
-        echo "SemVer: $GITVERSION_SEMVER"
+        echo SemVer: $SEMVER
 
     - name: Cache SonarCloud packages
       uses: actions/cache@v3
@@ -109,7 +109,7 @@ jobs:
       if: ${{ always() }}
 
     - name: Pack NuGet package
-      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj /p:Version=$GITVERSION_SEMVER
+      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj /p:Version=$SEMVER
 
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
