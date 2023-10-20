@@ -7,43 +7,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  calculate-version:
-    name: Calculate Version
-    runs-on: ubuntu-latest
-    outputs:
-      semVer: ${{ steps.gitversion.outputs.semVer }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0
-        with:
-          versionSpec: '5.x'
-
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0
-
-  display-semver:
-    name: Display Semantic Version
-    runs-on: ubuntu-latest
-    needs: calculate-version
-    env:
-      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
-    steps:
-      - name: Display version
-        run: |
-          echo SemVer: $SEMVER
-
   build:
     name: Build and analyze
     runs-on: windows-latest
-    needs: display-semver
-    env:
-      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
 
     steps:
     - name: Set up JDK
@@ -98,9 +64,11 @@ jobs:
         path: .
       if: ${{ always() }}
 
-    - name: Pack NuGet package
-      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj /p:Version=$SEMVER
-
-    - name: Push to NuGet
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
-  
+    - name: NuGet Publisher
+      uses: Jacup/publish-nuget@v2.6.0
+      with:
+        PROJECT_FILE_PATH: .\AStar.Utilities\AStar.Utilities.csproj
+        PACKAGE_NAME: AStar.Utilities
+        TAG_COMMIT: true
+        TAG_FORMAT: v*
+        NUGET_KEY: ${{secrets.nuget_api_key}}
