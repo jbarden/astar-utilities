@@ -33,4 +33,17 @@ public class StringExtensionsShould
 
         nullString.IsNotNull().Should().BeTrue();
     }
+
+    [Fact]
+    public void ReturnTheJsonRepresentationOfThePassedObject()
+    {
+        var anyClass = new AnyClass { Id = 1 };
+
+        anyClass.ToJson().Should().Be("{\"Id\":1}");
+    }
+
+    private class AnyClass
+    {
+        public int Id { get; set; }
+    }
 }
