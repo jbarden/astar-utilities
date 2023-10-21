@@ -93,5 +93,5 @@ jobs:
       run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj /p:Version="${{env.SEMVER}}-alpha${{env.BuildMetaData}}"
 
     - name: Push to NuGet
-      run: dotnet nuget push "**\AStar.Utilities.*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "**\AStar.Utilities.${{env.SEMVER}}-alpha${{env.BuildMetaData}}.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
   
