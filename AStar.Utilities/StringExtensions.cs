@@ -1,4 +1,6 @@
-﻿namespace AStar.Utilities;
+﻿using System.Text.Json;
+
+namespace AStar.Utilities;
 
 /// <summary>
 /// The <see cref="StringExtensions" /> class contains some useful methods to enable checks to be
@@ -21,9 +23,10 @@ public static class StringExtensions
     public static bool IsNotNull(this string? value) => !value.IsNull();
 
     /// <summary>
-    /// The ToJson method, as you might expect, converts the object to the appropriate JSON representation.
+    /// The FromJson method, as you might expect, converts the supplied JSON to the specified object.
     /// </summary>
-    /// <param name="object">The object to convert to JSON.</param>
-    /// <returns>The JSON string of the object supplied.</returns>
-    public static string ToJson<T>(this T @object) => System.Text.Json.JsonSerializer.Serialize(@object);
+    /// <typeparam name="T">The required type of the object to deserialise to.</typeparam>
+    /// <param name="json">The JSON representation of the object.</param>
+    /// <returns>A deserialised object based on the original JSON.</returns>
+    public static T FromJson<T>(this string json) => JsonSerializer.Deserialize<T>(json)!;
 }

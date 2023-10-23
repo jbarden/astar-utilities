@@ -1,3 +1,5 @@
+using AStar.Utilities.Unit.Tests.Helpers;
+
 namespace AStar.Utilities.Unit.Tests;
 
 public class StringExtensionsShould
@@ -35,15 +37,12 @@ public class StringExtensionsShould
     }
 
     [Fact]
-    public void ReturnTheJsonRepresentationOfThePassedObject()
+    public void ReturnTheExpectedObjectFromTheFromJsonMethod()
     {
-        var anyClass = new AnyClass { Id = 1 };
+        const string testJson = "{\"Id\":1}";
 
-        anyClass.ToJson().Should().Be("{\"Id\":1}");
-    }
+        var objectFromJson = testJson.FromJson<AnyClass>();
 
-    private class AnyClass
-    {
-        public int Id { get; set; }
+        objectFromJson.Id.Should().Be(1);
     }
 }
