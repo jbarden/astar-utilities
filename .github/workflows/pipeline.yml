@@ -7,35 +7,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  calculate-version:
-    name: Calculate Version
-    runs-on: ubuntu-latest
-    outputs:
-      semVer: ${{ steps.gitversion.outputs.semVer }}
-      buildMetaData: ${{ steps.gitversion.outputs.BuildMetaData }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0
-        with:
-          versionSpec: '5.x'
-
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0
-      
   build:
     name: Build and analyze
     runs-on: windows-latest
-    needs: calculate-version
-    env:
-      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
-      BuildMetaData: ${{ needs.calculate-version.outputs.buildMetaData }}
-
     steps:
     - name: Set up JDK
       uses: actions/setup-java@v3
@@ -78,7 +52,7 @@ jobs:
       run: |
         dotnet tool install --global dotnet-coverage
         .\.sonar\scanner\dotnet-sonarscanner begin /k:"jbarden_astar-utilities" /o:"jbarden-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-        dotnet build --configuration Release p:Version="${{env.SEMVER}}-alpha${{env.BuildMetaData}}"
+        dotnet build --configuration Release p:Version="1.1.0-alpha"
         dotnet-coverage collect 'dotnet test --filter "FullyQualifiedName!~Acceptance.Tests"' -f xml -o 'coverage.xml'
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
@@ -90,8 +64,8 @@ jobs:
       if: ${{ always() }}
 
     - name: Pack NuGet package
-      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj /p:Version="${{env.SEMVER}}-alpha${{env.BuildMetaData}}"
+      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj
 
     - name: Push to NuGet
-      run: dotnet nuget push "**\AStar.Utilities.${{env.SEMVER}}-alpha${{env.BuildMetaData}}.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "**\AStar.Utilities*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
   
