@@ -19,7 +19,7 @@
     <Description>This package contains a collection of extension methods designed to make code more fluent (aka readable).
 
 Over time, additional methods will be added.</Description>
-    <Version>1.1.0-alpha</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

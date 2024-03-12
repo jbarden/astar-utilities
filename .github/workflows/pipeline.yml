@@ -60,12 +60,12 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.0.0
       with:
-        name: "AStar.Utilities.1.1.0-alpha"
+        name: "AStar.Utilities.1.1.0"
         path: "**/*.*"
 
     - name: Pack NuGet package
       run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj
 
     - name: Push to NuGet
-      run: dotnet nuget push "**\AStar.Utilities.*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "**\AStar.Utilities.*.nupkg" --api-key ${{secrets.nuget_api_key}} --skip-duplicate --source https://api.nuget.org/v3/index.json
   
