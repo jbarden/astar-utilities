@@ -58,8 +58,10 @@ jobs:
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
     - name: Pack NuGet package
-      run: dotnet pack .\AStar.Utilities\AStar.Utilities.csproj
+      if: github.ref == 'refs/heads/main'
+      run: dotnet pack .\src\AStar.Utilities\AStar.Utilities.csproj
 
     - name: Push to NuGet
+      if: github.ref == 'refs/heads/main'
       run: dotnet nuget push "**\AStar.Utilities.*.nupkg" --api-key ${{secrets.nuget_api_key}} --skip-duplicate --source https://api.nuget.org/v3/index.json
   
