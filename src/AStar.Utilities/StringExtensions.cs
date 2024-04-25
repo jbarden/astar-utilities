@@ -23,6 +23,20 @@ public static class StringExtensions
     public static bool IsNotNull(this string? value) => !value.IsNull();
 
     /// <summary>
+    /// The IsNullOrWhiteSpace method, as you might expect, checks whether the string is, in fact, null, empty or whitespace.
+    /// </summary>
+    /// <param name="value">The string to check for being null, empty or whitespace.</param>
+    /// <returns>True if the string is null, empty or whitespace, False otherwise.</returns>
+    public static bool IsNullOrWhiteSpace(this string? value) => string.IsNullOrWhiteSpace(value);
+
+    /// <summary>
+    /// The IsNotNullOrWhiteSpace method, as you might expect, checks whether the string is not null, empty or whitespace.
+    /// </summary>
+    /// <param name="value">The string to check for being not null, empty or whitespace.</param>
+    /// <returns>True if the string is not null, empty or whitespace, False otherwise.</returns>
+    public static bool IsNotNullOrWhiteSpace(this string? value) => !value.IsNullOrWhiteSpace();
+
+    /// <summary>
     /// The FromJson method, as you might expect, converts the supplied JSON to the specified object.
     /// </summary>
     /// <typeparam name="T">The required type of the object to deserialise to.</typeparam>
