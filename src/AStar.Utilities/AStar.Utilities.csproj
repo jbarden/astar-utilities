@@ -19,9 +19,9 @@
 		<Description>
 			This package contains a collection of extension methods designed to make code more fluent (aka readable).
 
-			Over time, additional methods will be added.
+			Over time, additional methods will be added. Please see the ReadMe for more information.
 		</Description>
-		<Version>1.1.2</Version>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
