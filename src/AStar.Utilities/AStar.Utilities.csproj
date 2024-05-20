@@ -16,12 +16,15 @@
 		<RepositoryUrl>https://github.com/jbarden/astar-utilities.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/jbarden/astar-utilities</PackageProjectUrl>
-		<Description>
-			This package contains a collection of extension methods designed to make code more fluent (aka readable).
+		<Description>This package contains a collection of extension methods designed to make code more fluent (aka readable).
 
-			Over time, additional methods will be added. Please see the ReadMe for more information.
-		</Description>
-		<Version>1.2.0</Version>
+Over time, additional methods will be added. Please see the ReadMe for more information.</Description>
+		<Version>1.2.1</Version>
+		<PackageIcon>AStar.png</PackageIcon>
+		<PackageReleaseNotes>This version only adds the NuGet icon.</PackageReleaseNotes>
+		<PackageTags>C# Utilities</PackageTags>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -33,6 +36,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\..\AStar.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
